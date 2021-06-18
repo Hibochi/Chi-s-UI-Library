@@ -56,7 +56,7 @@ function library:CreateLib(arg)
 
     --Properties:
 
-    Chis.Name = "Chis"
+    Chis.Name = LibName
     Chis.Parent = game:GetService("CoreGui")
     Chis.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
