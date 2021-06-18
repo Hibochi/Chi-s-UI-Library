@@ -6,8 +6,29 @@ Credit: Made by Hibochi#5683
 
 local library = {}
 
+math.randomseed(tick())
+local a = {}
+for b = 48, 57 do
+    table.insert(a, string.char(b))
+end
+for b = 65, 90 do
+    table.insert(a, string.char(b))
+end
+for b = 97, 122 do
+    table.insert(a, string.char(b))
+end
+function RandomCharacters(c)
+    if c > 0 then
+        return RandomCharacters(c - 1) .. a[math.random(1, #a)]
+    else
+        return ""
+    end
+end
+
+local LibName = RandomCharacters(math.random(5, 20))
+
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
-    if v:IsA("ScreenGui") and v.Name == "Chis" then
+    if v:IsA("ScreenGui") and v.Name == LibName then
         v:Destroy()
     end
 end
