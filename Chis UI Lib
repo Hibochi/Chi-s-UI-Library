@@ -1,0 +1,184 @@
+--[[
+
+Credit: Made by Hibochi#5683
+
+]]
+
+local library = {}
+
+function library:CreateWindow(arg)
+
+    local Chis = Instance.new("ScreenGui")
+    local UpperFrame = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    local UIName = Instance.new("TextLabel")
+    local UICorner_2 = Instance.new("UICorner")
+    local Container = Instance.new("Frame")
+    local UICorner_3 = Instance.new("UICorner")
+    local TabContainer = Instance.new("Frame")
+    local UICorner_4 = Instance.new("UICorner")
+    local UIListLayout = Instance.new("UIListLayout")
+    local UIPadding = Instance.new("UIPadding")
+    local TabContainerList = Instance.new("Frame")
+    local UICorner_7 = Instance.new("UICorner")
+    local UIPadding_2 = Instance.new("UIPadding")
+    local UIGridLayout = Instance.new("UIGridLayout")
+    local UpperInFrame = Instance.new("Frame")
+    local UICorner_6 = Instance.new("UICorner")
+
+    --Properties:
+
+    Chis.Name = "Chis"
+    Chis.Parent = game:GetService("CoreGui")
+    Chis.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    UpperFrame.Name = "UpperFrame"
+    UpperFrame.Parent = Chis
+    UpperFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+    UpperFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    UpperFrame.Position = UDim2.new(0.539285779, 0, 0.251478165, 0)
+    UpperFrame.Size = UDim2.new(0.465983212, 0, 0.0748663098, 0)
+    UpperFrame.ZIndex = 0
+    
+    UICorner.Parent = UpperFrame
+    
+    UIName.Name = "UIName"
+    UIName.Parent = UpperFrame
+    UIName.AnchorPoint = Vector2.new(0.5, 0.5)
+    UIName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    UIName.BackgroundTransparency = 1.000
+    UIName.Position = UDim2.new(0.5, 0, 0.535714269, 0)
+    UIName.Size = UDim2.new(0.400000006, 0, 0.892857134, 0)
+    UIName.ZIndex = 2
+    UIName.Font = Enum.Font.Cartoon
+    UIName.Text = arg
+    UIName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    UIName.TextScaled = true
+    UIName.TextSize = 14.000
+    UIName.TextWrapped = true
+    
+    UICorner_2.Parent = UIName
+    
+    Container.Name = "Container"
+    Container.Parent = UpperFrame
+    Container.AnchorPoint = Vector2.new(0.5, 0.5)
+    Container.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    Container.Position = UDim2.new(0.499533981, 0, 4.71428537, 0)
+    Container.Size = UDim2.new(1.00199997, 0, 9.46428585, 0)
+    Container.ZIndex = 0
+    
+    UICorner_3.Parent = Container
+    
+    TabContainer.Name = "TabContainer"
+    TabContainer.Parent = UpperFrame
+    TabContainer.BackgroundColor3 = Color3.fromRGB(13, 13, 13)
+    TabContainer.Position = UDim2.new(-0.00200000009, 0, 1.03571403, 0)
+    TabContainer.Size = UDim2.new(0.203999996, 0, 8.39285755, 0)
+    
+    UICorner_4.Parent = TabContainer
+    
+    UIListLayout.Parent = TabContainer
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    
+    UIPadding.Parent = TabContainer
+    UIPadding.PaddingTop = UDim.new(0, 5)
+
+    UpperInFrame.Name = "UpperInFrame"
+    UpperInFrame.Parent = UpperFrame
+    UpperInFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+    UpperInFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    UpperInFrame.Position = UDim2.new(0.499285787, 0, 0.537192464, 0)
+    UpperInFrame.Size = UDim2.new(1, 0, 1, 0)
+
+    UICorner_6.Parent = UpperInFrame
+
+    TabContainerList.Name = "TabContainerList"
+    TabContainerList.Parent = UpperFrame
+    TabContainerList.AnchorPoint = Vector2.new(0.5, 0.5)
+    TabContainerList.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    TabContainerList.Position = UDim2.new(0.607266963, 0, 5.33035707, 0)
+    TabContainerList.Size = UDim2.new(0.786533952, 0, 8.23214245, 0)
+    TabContainerList.ZIndex = 0
+
+    UICorner_7.Parent = TabContainerList
+
+    UIPadding_2.Parent = TabContainerList
+
+    UIGridLayout.Parent = TabContainerList
+    UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIGridLayout.CellSize = UDim2.new(0, 127, 0, 21)
+    UIGridLayout.FillDirectionMaxCells = 3
+
+    local Buttons = {}
+
+    function Buttons:AddButton(text, callback)
+        local callback = callback or function() end
+        local Button = Instance.new("TextButton")
+        local UICorner_8 = Instance.new("UICorner")
+
+        Button.Name = "Button"
+        Button.Parent = TabContainerList
+        Button.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+        Button.Position = UDim2.new(-0.0399201587, 0, 0.0452830195, 0)
+        Button.Size = UDim2.new(0.253493011, 0, 0.0792452842, 0)
+        Button.Font = Enum.Font.Cartoon
+        Button.Text = text.." Tab"
+        Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Button.TextScaled = true
+        Button.TextSize = 14.000
+        Button.TextWrapped = true
+        
+        UICorner_8.Parent = Button
+
+        Button.MouseButton1Click:Connect(function()
+            pcall(callback)
+        end)
+    end
+    return Buttons
+
+    local TabButtons = {}
+
+    function TabButtons:AddTab(text)
+        local TabButton = Instance.new("TextButton")
+        local UICorner_5 = Instance.new("UICorner")
+        local TabContainerList = Instance.new("Frame")
+        local UICorner_7 = Instance.new("UICorner")
+        local UIPadding_2 = Instance.new("UIPadding")
+        local UIGridLayout = Instance.new("UIGridLayout")
+
+        TabButton.Name = "TabButton"
+        TabButton.Parent = TabContainer
+        TabButton.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+        TabButton.Position = UDim2.new(0, 0, 3.24655076e-08, 0)
+        TabButton.Size = UDim2.new(1, 0, 0.0893616974, 0)
+        TabButton.Font = Enum.Font.Cartoon
+        TabButton.Text = text
+        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TabButton.TextScaled = true
+        TabButton.TextSize = 14.000
+        TabButton.TextWrapped = true
+
+        UICorner_5.Parent = TabButton
+
+        TabContainerList.Name = "TabContainerList"
+        TabContainerList.Parent = UpperFrame
+        TabContainerList.AnchorPoint = Vector2.new(0.5, 0.5)
+        TabContainerList.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        TabContainerList.Position = UDim2.new(0.607266963, 0, 5.33035707, 0)
+        TabContainerList.Size = UDim2.new(0.786533952, 0, 8.23214245, 0)
+        TabContainerList.ZIndex = 0
+        TabContainerList.Visible = false
+    
+        UICorner_7.Parent = TabContainerList
+    
+        UIPadding_2.Parent = TabContainerList
+    
+        UIGridLayout.Parent = TabContainerList
+        UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIGridLayout.CellSize = UDim2.new(0, 127, 0, 21)
+        UIGridLayout.FillDirectionMaxCells = 3
+    end
+    return TabButtons
+end
+
+return library
