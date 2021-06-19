@@ -32,13 +32,9 @@ function library:CreateLib(arg, name)
     local Container = Instance.new("Frame")
     local UICorner_3 = Instance.new("UICorner")
     local TabContainer = Instance.new("Frame")
-    local UICorner_4 = Instance.new("UICorner")
-    local UIListLayout = Instance.new("UIListLayout")
     local UIPadding = Instance.new("UIPadding")
-    local TabContainerList = Instance.new("Frame")
-    local UICorner_7 = Instance.new("UICorner")
-    local UIPadding_2 = Instance.new("UIPadding")
-    local UIGridLayout = Instance.new("UIGridLayout")
+    local UICorner_2 = Instance.new("UICorner")
+    local UIListLayout = Instance.new("UIListLayout")
     local UpperInFrame = Instance.new("Frame")
     local UICorner_6 = Instance.new("UICorner")
     local pages = Instance.new("Folder")
@@ -97,14 +93,14 @@ function library:CreateLib(arg, name)
     TabContainer.Position = UDim2.new(-0.00200000009, 0, 1.03571403, 0)
     TabContainer.Size = UDim2.new(0.203999996, 0, 8.39285755, 0)
     
-    UICorner_4.Parent = TabContainer
-    
-    UIListLayout.Parent = TabContainer
-    UIListLayout.Padding = UDim.new(0, 5)
-    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    
     UIPadding.Parent = TabContainer
     UIPadding.PaddingTop = UDim.new(0, 5)
+
+    UICorner_2.Parent = TabContainer
+
+    UIListLayout.Parent = TabContainer
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0, 5)
 
     UpperInFrame.Name = "UpperInFrame"
     UpperInFrame.Parent = UpperFrame
@@ -121,10 +117,18 @@ function library:CreateLib(arg, name)
 
         local TabButton = Instance.new("TextButton")
         local UICorner_5 = Instance.new("UICorner")
-        local TabContainerList = Instance.new("Frame")
-        local UICorner_7 = Instance.new("UICorner")
-        local UIPadding_2 = Instance.new("UIPadding")
-        local UIGridLayout = Instance.new("UIGridLayout")
+        local TabContainerList = Instance.new("ScrollingFrame")
+        local UICorner = Instance.new("UICorner")
+        local UIPadding = Instance.new("UIPadding")
+        local UIListLayout = Instance.new("UIListLayout")
+
+        local function UpdateSize()
+            local cS = UIListLayout.AbsoluteContentSize
+
+            game.TweenService:Create(TabContainerList, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
+            }):Play()
+        end
 
         TabButton.Name = text.." TabButton"
         TabButton.Parent = TabContainer
@@ -147,126 +151,211 @@ function library:CreateLib(arg, name)
         TabContainerList.Position = UDim2.new(0.607266963, 0, 5.33035707, 0)
         TabContainerList.Size = UDim2.new(0.786533952, 0, 8.23214245, 0)
         TabContainerList.ZIndex = 2
-        TabContainerList.Visible = false
-    
-        UICorner_7.Parent = TabContainerList
+        TabContainerList.ScrollBarThickness = 5
+        TabContainerList.Active = true
+        TabContainerList.BorderSizePixel = 0
+        
+        UICorner.Parent = TabContainerList
 
         TabButton.MouseButton1Click:Connect(function()
+            UpdateSize()
             for i, v in next, pages:GetChildren() do
                 v.Visible = false
             end
             TabContainerList.Visible = true
         end)
     
-        UIPadding_2.Parent = TabContainerList
-    
-        UIGridLayout.Parent = TabContainerList
-        UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        UIGridLayout.CellSize = UDim2.new(0, 127, 0, 21)
-        UIGridLayout.FillDirectionMaxCells = 3
+        UIListLayout.Parent = TabContainerList
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout.Padding = UDim.new(0, 5)
 
-        local Buttons_functions = {}
+        UIPadding.Parent = TabContainerList
+        local Sections = {}
 
-        function Buttons_functions:AddButton(text, callback)
-            local callback = callback or function() end
-            local Button = Instance.new("TextButton")
-            local UICorner_8 = Instance.new("UICorner")
-    
-            Button.Name = "Button"
-            Button.Parent = TabContainerList
-            Button.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-            Button.Position = UDim2.new(-0.0399201587, 0, 0.0452830195, 0)
-            Button.Size = UDim2.new(0.253493011, 0, 0.0792452842, 0)
-            Button.Font = Enum.Font.Cartoon
-            Button.Text = text
-            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Button.TextScaled = true
-            Button.TextSize = 14.000
-            Button.TextWrapped = true
-            
-            UICorner_8.Parent = Button
-    
-            Button.MouseButton1Click:Connect(function()
-                pcall(callback)
-            end)
-        end
-
-        function Buttons_functions:AddKeybind(nametext, first, callback)
-            nametext = nametext or "Keybind:"
-            callback = callback or function () end
-            local oldkey = first.Name
-            local KeybindBox = Instance.new("TextButton")
+        function Sections:AddSection(secName)
+            secName = secName or "Section"
+            local SectionFrame = Instance.new("Frame")
             local UICorner = Instance.new("UICorner")
-            local Keybindname = Instance.new("TextLabel")
+            local NameSectionFrame = Instance.new("Frame")
             local UICorner_2 = Instance.new("UICorner")
-            local Title = Instance.new("TextLabel")
+            local SectionName = Instance.new("TextLabel")
+            local MainFrame = Instance.new("Frame")
             local UICorner_3 = Instance.new("UICorner")
+            local UIListLayout = Instance.new("UIListLayout")
+            local UIListLayout_2 = Instance.new("UIListLayout")
 
-            KeybindBox.Name = "KeybindBox"
-            KeybindBox.Parent = TabContainerList
-            KeybindBox.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-            KeybindBox.Position = UDim2.new(-0.0399201587, 0, 0.0452830195, 0)
-            KeybindBox.Size = UDim2.new(0.322935849, 0, 0.0911062956, 0)
-            KeybindBox.Font = Enum.Font.Cartoon
-            KeybindBox.Text = ""
-            KeybindBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-            KeybindBox.TextScaled = true
-            KeybindBox.TextSize = 14.000
-            KeybindBox.TextWrapped = true
-            KeybindBox.TextXAlignment = Enum.TextXAlignment.Right
-            KeybindBox.MouseButton1Click:Connect(function(k)
-                if not focusing then
-                    Keybindname.Text = ". . ."
-                    local e, r = game:GetService("UserInputService").InputBegan:Wait()
-                    if e.KeyCode.Name ~= "Unknown" then
-                        Keybindname.Text = e.KeyCode.Name
-                        oldkey = e.KeyCode.Name;
+            for i,v in pairs(MainFrame:GetChildren()) do
+                while wait() do
+                    if v:IsA("Frame") or v:IsA("TextButton") then
+                        function size(pro)
+                            if pro == "Size" then
+                                UpdateSize()
+                                updateSectionFrame()
+                            end
+                        end
+                        v.Changed:Connect(size)
                     end
                 end
-            end)
+            end
 
-            game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
-                if not ok then 
-                    if current.KeyCode.Name == oldkey then 
-                        callback()
-                    end
-                end
-            end)
+            local function updateSectionFrame()
+                local innerSc = UIListLayout.AbsoluteContentSize
+                MainFrame.Size = UDim2.new(1, 0, 0, innerSc.Y)
+                local frameSc = UIListLayout_2.AbsoluteContentSize
+                SectionFrame.Size = UDim2.new(0, 352, 0, frameSc.Y)
+            end
 
-            UICorner.Parent = KeybindBox
+            updateSectionFrame()
 
-            Keybindname.Name = "Keybindname"
-            Keybindname.Parent = KeybindBox
-            Keybindname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Keybindname.BackgroundTransparency = 1.000
-            Keybindname.Position = UDim2.new(0.456692904, 0, -3.63304508e-07, 0)
-            Keybindname.Size = UDim2.new(0, 67, 0, 20)
-            Keybindname.Font = Enum.Font.Cartoon
-            Keybindname.Text = oldkey
-            Keybindname.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Keybindname.TextScaled = true
-            Keybindname.TextSize = 14.000
-            Keybindname.TextWrapped = true
-
-            UICorner_2.Parent = Keybindname
-
-            Title.Name = "Title"
-            Title.Parent = KeybindBox
-            Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Title.BackgroundTransparency = 1.000
-            Title.Position = UDim2.new(0, 0, -3.63304508e-07, 0)
-            Title.Size = UDim2.new(0, 53, 0, 20)
-            Title.Font = Enum.Font.Cartoon
-            Title.Text = nametext
-            Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Title.TextScaled = true
-            Title.TextSize = 14.000
-            Title.TextWrapped = true
-
-            UICorner_3.Parent = Title
+            SectionFrame.Name = secName.." SectionFrame"
+            SectionFrame.Parent = TabContainerList
+            SectionFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SectionFrame.BackgroundTransparency = 1.000
+            SectionFrame.Position = UDim2.new(0, 0, -0.0281996019, 0)
+            SectionFrame.Size = UDim2.new(0.997457206, 0, 1.02603042, 0)
             
+            UICorner.Parent = SectionFrame
+
+            UIListLayout_2.Parent = SectionFrame
+            UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+            UIListLayout_2.Padding = UDim.new(0, 5)
+            
+            NameSectionFrame.Name = "NameSectionFrame"
+            NameSectionFrame.Parent = SectionFrame
+            NameSectionFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+            NameSectionFrame.Position = UDim2.new(0, 0, 0.0274841432, 0)
+            NameSectionFrame.Size = UDim2.new(0.999319434, 0, 0.139534891, 0)
+            
+            UICorner_2.Parent = NameSectionFrame
+            
+            SectionName.Name = "SectionName"
+            SectionName.Parent = NameSectionFrame
+            SectionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SectionName.BackgroundTransparency = 1.000
+            SectionName.Position = UDim2.new(0, 0, -4.62387561e-07, 0)
+            SectionName.Size = UDim2.new(0.997455537, 0, 0.950023055, 0)
+            SectionName.Font = Enum.Font.Cartoon
+            SectionName.Text = secName.." Section"
+            SectionName.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SectionName.TextScaled = true
+            SectionName.TextSize = 14.000
+            SectionName.TextWrapped = true
+            
+            MainFrame.Name = "MainFrame"
+            MainFrame.Parent = SectionFrame
+            MainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            MainFrame.BackgroundTransparency = 1.000
+            MainFrame.BorderSizePixel = 0
+            MainFrame.Position = UDim2.new(0, 0, 0.173361525, 0)
+            MainFrame.Size = UDim2.new(0.999319434, 0, 0.824524283, 0)
+            
+            UICorner_3.Parent = MainFrame
+            
+            UIListLayout.Parent = MainFrame
+            UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+            UIListLayout.Padding = UDim.new(0, 5)
+
+            local Buttons_functions = {}
+
+            function Buttons_functions:AddButton(text, callback)
+                local callback = callback or function() end
+                local Button = Instance.new("TextButton")
+                local UICorner = Instance.new("UICorner")
+        
+                Button.Name = text.." Button"
+                Button.Parent = MainFrame
+                Button.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                Button.Position = UDim2.new(0, 0, 0.142388374, 0)
+                Button.Size = UDim2.new(1, 0, 0.131999999, 0)
+                Button.Font = Enum.Font.Cartoon
+                Button.Text = text
+                Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Button.TextScaled = true
+                Button.TextSize = 14.000
+                Button.TextWrapped = true
+
+                UICorner.Parent = Button
+        
+                Button.MouseButton1Click:Connect(function()
+                    pcall(callback)
+                end)
+            end
+
+            function Buttons_functions:AddKeybind(nametext, first, callback)
+                nametext = nametext or "Keybind:"
+                callback = callback or function () end
+                local oldkey = first.Name
+                local KeybindBox = Instance.new("TextButton")
+                local UICorner = Instance.new("UICorner")
+                local Keybindname = Instance.new("TextLabel")
+                local UICorner_2 = Instance.new("UICorner")
+                local Title = Instance.new("TextLabel")
+                local UICorner_3 = Instance.new("UICorner")
+
+                KeybindBox.Name = "KeybindBox"
+                KeybindBox.Parent = MainFrame
+                KeybindBox.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                KeybindBox.Size = UDim2.new(1, 0, 0.132131934, 0)
+                KeybindBox.Font = Enum.Font.Cartoon
+                KeybindBox.Text = ""
+                KeybindBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+                KeybindBox.TextScaled = true
+                KeybindBox.TextSize = 14.000
+                KeybindBox.TextWrapped = true
+                KeybindBox.TextXAlignment = Enum.TextXAlignment.Right
+                KeybindBox.MouseButton1Click:Connect(function(k)
+                    if not focusing then
+                        Keybindname.Text = ". . ."
+                        local e, r = game:GetService("UserInputService").InputBegan:Wait()
+                        if e.KeyCode.Name ~= "Unknown" then
+                            Keybindname.Text = e.KeyCode.Name
+                            oldkey = e.KeyCode.Name;
+                        end
+                    end
+                end)
+
+                game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
+                    if not ok then 
+                        if current.KeyCode.Name == oldkey then 
+                            callback()
+                        end
+                    end
+                end)
+
+                UICorner.Parent = KeybindBox
+
+                Keybindname.Name = "Keybindname"
+                Keybindname.Parent = KeybindBox
+                Keybindname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Keybindname.BackgroundTransparency = 1.000
+                Keybindname.Position = UDim2.new(0.705887496, 0, 0, 0)
+                Keybindname.Size = UDim2.new(0.292422235, 0, 0.952380955, 0)
+                Keybindname.Font = Enum.Font.Cartoon
+                Keybindname.Text = oldkey
+                Keybindname.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Keybindname.TextScaled = true
+                Keybindname.TextSize = 14.000
+                Keybindname.TextWrapped = true
+
+                UICorner_2.Parent = Keybindname
+
+                Title.Name = "Title"
+                Title.Parent = KeybindBox
+                Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Title.BackgroundTransparency = 1.000
+                Title.Size = UDim2.new(0.70181334, 0, 0.952380955, 0)
+                Title.Font = Enum.Font.Cartoon
+                Title.Text = nametext
+                Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Title.TextScaled = true
+                Title.TextSize = 14.000
+                Title.TextWrapped = true
+
+                UICorner_3.Parent = Title
+            end
+            return Buttons_functions
         end
-        do return Buttons_functions end
+        return Sections
     end
     do return TabButtons end
 end
