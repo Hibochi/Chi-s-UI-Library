@@ -6,34 +6,23 @@ Credit: Made by Hibochi#5683
 
 local library = {}
 
-math.randomseed(tick())
-local a = {}
-for b = 48, 57 do
-    table.insert(a, string.char(b))
-end
-for b = 65, 90 do
-    table.insert(a, string.char(b))
-end
-for b = 97, 122 do
-    table.insert(a, string.char(b))
-end
-function RandomCharacters(c)
-    if c > 0 then
-        return RandomCharacters(c - 1) .. a[math.random(1, #a)]
+function library:ToggleUI()
+    if game.CoreGui:FindFirstChild("ChisUILib").Enabled  then
+        game.CoreGui:FindFirstChild("ChisUILib").Enabled = false
     else
-        return ""
+        game.CoreGui:FindFirstChild("ChisUILib").Enabled = true
     end
 end
 
-local LibName = RandomCharacters(math.random(5, 20))
-
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
-    if v:IsA("ScreenGui") and v.Name == LibName then
+    if v:IsA("ScreenGui") and v.Name == "ChisUILib" then
         v:Destroy()
     end
 end
 
-function library:CreateLib(arg)
+local focusing = false
+
+function library:CreateLib(arg, name)
 
     local Chis = Instance.new("ScreenGui")
     local UpperFrame = Instance.new("Frame")
@@ -56,7 +45,7 @@ function library:CreateLib(arg)
 
     --Properties:
 
-    Chis.Name = LibName
+    Chis.Name = "ChisUILib"
     Chis.Parent = game:GetService("CoreGui")
     Chis.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
@@ -176,9 +165,9 @@ function library:CreateLib(arg)
         UIGridLayout.CellSize = UDim2.new(0, 127, 0, 21)
         UIGridLayout.FillDirectionMaxCells = 3
 
-        local Buttons = {}
+        local Buttons_functions = {}
 
-        function Buttons:AddButton(text, callback)
+        function Buttons_functions:AddButton(text, callback)
             local callback = callback or function() end
             local Button = Instance.new("TextButton")
             local UICorner_8 = Instance.new("UICorner")
@@ -201,7 +190,83 @@ function library:CreateLib(arg)
                 pcall(callback)
             end)
         end
-        do return Buttons end
+
+        function Buttons_functions:AddKeybind(nametext, first, callback)
+            nametext = nametext or "Keybind:"
+            callback = callback or function () end
+            local oldkey = first.Name
+            local KeybindBox = Instance.new("TextButton")
+            local UICorner = Instance.new("UICorner")
+            local Keybindname = Instance.new("TextLabel")
+            local UICorner_2 = Instance.new("UICorner")
+            local Title = Instance.new("TextLabel")
+            local UICorner_3 = Instance.new("UICorner")
+
+            KeybindBox.Name = "KeybindBox"
+            KeybindBox.Parent = TabContainerList
+            KeybindBox.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+            KeybindBox.Position = UDim2.new(-0.0399201587, 0, 0.0452830195, 0)
+            KeybindBox.Size = UDim2.new(0.322935849, 0, 0.0911062956, 0)
+            KeybindBox.Font = Enum.Font.Cartoon
+            KeybindBox.Text = ""
+            KeybindBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+            KeybindBox.TextScaled = true
+            KeybindBox.TextSize = 14.000
+            KeybindBox.TextWrapped = true
+            KeybindBox.TextXAlignment = Enum.TextXAlignment.Right
+            KeybindBox.MouseButton1Click:Connect(function(k)
+                if not focusing then
+                    Keybindname.Text = ". . ."
+                    local e, r = game:GetService("UserInputService").InputBegan:Wait()
+                    if e.KeyCode.Name ~= "Unknown" then
+                        Keybindname.Text = e.KeyCode.Name
+                        oldkey = e.KeyCode.Name;
+                    end
+                end
+            end)
+
+            game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
+                if not ok then 
+                    if current.KeyCode.Name == oldkey then 
+                        callback()
+                    end
+                end
+            end)
+
+            UICorner.Parent = KeybindBox
+
+            Keybindname.Name = "Keybindname"
+            Keybindname.Parent = KeybindBox
+            Keybindname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Keybindname.BackgroundTransparency = 1.000
+            Keybindname.Position = UDim2.new(0.456692904, 0, -3.63304508e-07, 0)
+            Keybindname.Size = UDim2.new(0, 67, 0, 20)
+            Keybindname.Font = Enum.Font.Cartoon
+            Keybindname.Text = oldkey
+            Keybindname.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Keybindname.TextScaled = true
+            Keybindname.TextSize = 14.000
+            Keybindname.TextWrapped = true
+
+            UICorner_2.Parent = Keybindname
+
+            Title.Name = "Title"
+            Title.Parent = KeybindBox
+            Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title.BackgroundTransparency = 1.000
+            Title.Position = UDim2.new(0, 0, -3.63304508e-07, 0)
+            Title.Size = UDim2.new(0, 53, 0, 20)
+            Title.Font = Enum.Font.Cartoon
+            Title.Text = nametext
+            Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Title.TextScaled = true
+            Title.TextSize = 14.000
+            Title.TextWrapped = true
+
+            UICorner_3.Parent = Title
+            
+        end
+        do return Buttons_functions end
     end
     do return TabButtons end
 end
