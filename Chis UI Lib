@@ -7,190 +7,164 @@ Credit: Made by Hibochi#5683
 local library = {}
 
 function library:ToggleUI()
-    if game.CoreGui:FindFirstChild("ChisUILib").Enabled  then
-        game.CoreGui:FindFirstChild("ChisUILib").Enabled = false
+    if game.CoreGui:FindFirstChild("ChisUiLib").Enabled  then
+        game.CoreGui:FindFirstChild("ChisUiLib").Enabled = false
     else
-        game.CoreGui:FindFirstChild("ChisUILib").Enabled = true
+        game.CoreGui:FindFirstChild("ChisUiLib").Enabled = true
     end
 end
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
-    if v:IsA("ScreenGui") and v.Name == "ChisUILib" then
+    if v:IsA("ScreenGui") and v.Name == "ChisUiLib" then
         v:Destroy()
     end
 end
 
 local focusing = false
 
-function library:CreateLib(arg, name)
+function library:CreateLib(arg)
 
-    local Chis = Instance.new("ScreenGui")
-    local UpperFrame = Instance.new("Frame")
+    local ChisUiLib = Instance.new("ScreenGui")
+    local MainContainer = Instance.new("Frame")
     local UICorner = Instance.new("UICorner")
-    local UIName = Instance.new("TextLabel")
-    local UICorner_2 = Instance.new("UICorner")
-    local Container = Instance.new("Frame")
-    local UICorner_3 = Instance.new("UICorner")
-    local TabContainer = Instance.new("Frame")
+    local Pages = Instance.new("Folder")
+    local TabContainer = Instance.new("ScrollingFrame")
     local UIPadding = Instance.new("UIPadding")
-    local UICorner_2 = Instance.new("UICorner")
     local UIListLayout = Instance.new("UIListLayout")
-    local UpperInFrame = Instance.new("Frame")
-    local UICorner_6 = Instance.new("UICorner")
-    local pages = Instance.new("Folder")
+    local TitleFrame = Instance.new("Frame")
+    local UiName = Instance.new("TextLabel")
+    local UICorner_2 = Instance.new("UICorner")
+
+    
 
     --Properties:
 
-    Chis.Name = "ChisUILib"
-    Chis.Parent = game:GetService("CoreGui")
-    Chis.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    ChisUiLib.Name = "ChisUiLib"
+    ChisUiLib.Parent = game:GetService("CoreGui")
+    ChisUiLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    ChisUiLib.ResetOnSpawn = false
     
-    UpperFrame.Name = "UpperFrame"
-    UpperFrame.Parent = Chis
-    UpperFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-    UpperFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-    UpperFrame.Position = UDim2.new(0.539285779, 0, 0.251478165, 0)
-    UpperFrame.Size = UDim2.new(0.465983212, 0, 0.0748663098, 0)
-    UpperFrame.ZIndex = 0
-    UpperFrame.Active = true
-    UpperFrame.Draggable = true
+    MainContainer.Name = "MainContainer"
+    MainContainer.Parent = ChisUiLib
+    MainContainer.AnchorPoint = Vector2.new(0.5, 0.5)
+    MainContainer.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    MainContainer.Position = UDim2.new(0.499534041, 0, 0.5, 0)
+    MainContainer.Size = UDim2.new(0.430568486, 0, 0.775401056, 0)
+    MainContainer.Active = true
+    MainContainer.Draggable = true
+    
+    UICorner.Parent = MainContainer
+    
+    Pages.Name = "Pages"
+    Pages.Parent = MainContainer
 
-    pages.Name = "Pages"
-    pages.Parent = UpperFrame
-    
-    UICorner.Parent = UpperFrame
-    
-    UIName.Name = "UIName"
-    UIName.Parent = UpperFrame
-    UIName.AnchorPoint = Vector2.new(0.5, 0.5)
-    UIName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    UIName.BackgroundTransparency = 1.000
-    UIName.Position = UDim2.new(0.5, 0, 0.535714269, 0)
-    UIName.Size = UDim2.new(0.400000006, 0, 0.892857134, 0)
-    UIName.ZIndex = 2
-    UIName.Font = Enum.Font.Cartoon
-    UIName.Text = arg
-    UIName.TextColor3 = Color3.fromRGB(255, 255, 255)
-    UIName.TextScaled = true
-    UIName.TextSize = 14.000
-    UIName.TextWrapped = true
-    
-    UICorner_2.Parent = UIName
-    
-    Container.Name = "Container"
-    Container.Parent = UpperFrame
-    Container.AnchorPoint = Vector2.new(0.5, 0.5)
-    Container.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    Container.Position = UDim2.new(0.499533981, 0, 4.71428537, 0)
-    Container.Size = UDim2.new(1.00199997, 0, 9.46428585, 0)
-    Container.ZIndex = 0
-    
-    UICorner_3.Parent = Container
-    
     TabContainer.Name = "TabContainer"
-    TabContainer.Parent = UpperFrame
+    TabContainer.Parent = MainContainer
+    TabContainer.Active = true
     TabContainer.BackgroundColor3 = Color3.fromRGB(13, 13, 13)
-    TabContainer.Position = UDim2.new(-0.00200000009, 0, 1.03571403, 0)
-    TabContainer.Size = UDim2.new(0.203999996, 0, 8.39285755, 0)
+    TabContainer.BorderSizePixel = 0
+    TabContainer.Position = UDim2.new(0, 0, 0.134482756, 0)
+    TabContainer.Size = UDim2.new(0.220779225, 0, 0.865517259, 0)
+    TabContainer.ScrollBarThickness = 5
     
     UIPadding.Parent = TabContainer
+    UIPadding.PaddingLeft = UDim.new(0, 3)
     UIPadding.PaddingTop = UDim.new(0, 5)
-
-    UICorner_2.Parent = TabContainer
-
+    
     UIListLayout.Parent = TabContainer
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.Padding = UDim.new(0, 5)
 
-    UpperInFrame.Name = "UpperInFrame"
-    UpperInFrame.Parent = UpperFrame
-    UpperInFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-    UpperInFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-    UpperInFrame.Position = UDim2.new(0.499285787, 0, 0.537192464, 0)
-    UpperInFrame.Size = UDim2.new(1, 0, 1, 0)
+    TitleFrame.Name = "TitleFrame"
+    TitleFrame.Parent = MainContainer
+    TitleFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    TitleFrame.Size = UDim2.new(1, 0, 0.134482756, 0)
 
-    UICorner_6.Parent = UpperInFrame
+    UiName.Name = "UiName"
+    UiName.Parent = TitleFrame
+    UiName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    UiName.BackgroundTransparency = 1.000
+    UiName.BorderSizePixel = 0
+    UiName.Size = UDim2.new(1, 0, 1, 0)
+    UiName.Font = Enum.Font.Cartoon
+    UiName.Text = arg
+    UiName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    UiName.TextScaled = true
+    UiName.TextSize = 14.000
+    UiName.TextWrapped = true
+
+    UICorner_2.Parent = TitleFrame
 
     local TabButtons = {}
 
     function TabButtons:AddTab(text)
 
         local TabButton = Instance.new("TextButton")
-        local UICorner_5 = Instance.new("UICorner")
-        local TabContainerList = Instance.new("ScrollingFrame")
         local UICorner = Instance.new("UICorner")
-        local UIPadding = Instance.new("UIPadding")
+        local ContainerList = Instance.new("ScrollingFrame")
         local UIListLayout = Instance.new("UIListLayout")
+        local UIPadding = Instance.new("UIPadding")
 
         local function UpdateSize()
             local cS = UIListLayout.AbsoluteContentSize
 
-            game.TweenService:Create(TabContainerList, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+            game.TweenService:Create(ContainerList, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
                 CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
             }):Play()
         end
-
         TabButton.Name = text.." TabButton"
         TabButton.Parent = TabContainer
         TabButton.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-        TabButton.Position = UDim2.new(0, 0, 3.24655076e-08, 0)
-        TabButton.Size = UDim2.new(1, 0, 0.0893616974, 0)
+        TabButton.Position = UDim2.new(0.00980392192, 0, 0, 0)
+        TabButton.Size = UDim2.new(0, 115,0, 28)
         TabButton.Font = Enum.Font.Cartoon
         TabButton.Text = text.." Tab"
         TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         TabButton.TextScaled = true
         TabButton.TextSize = 14.000
         TabButton.TextWrapped = true
-
-        UICorner_5.Parent = TabButton
-
-        TabContainerList.Name = "TabContainerList"
-        TabContainerList.Parent = pages
-        TabContainerList.AnchorPoint = Vector2.new(0.5, 0.5)
-        TabContainerList.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        TabContainerList.Position = UDim2.new(0.607266963, 0, 5.33035707, 0)
-        TabContainerList.Size = UDim2.new(0.786533952, 0, 8.23214245, 0)
-        TabContainerList.ZIndex = 2
-        TabContainerList.ScrollBarThickness = 5
-        TabContainerList.Active = true
-        TabContainerList.BorderSizePixel = 0
         
-        UICorner.Parent = TabContainerList
+        UICorner.Parent = TabButton
+
+        ContainerList.Name = "ContainerList"
+        ContainerList.Parent = Pages
+        ContainerList.Active = true
+        ContainerList.AnchorPoint = Vector2.new(0.5, 0.5)
+        ContainerList.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        ContainerList.BorderSizePixel = 0
+        ContainerList.Position = UDim2.new(0.611999989, 0, 0.574999988, 0)
+        ContainerList.Size = UDim2.new(0.77922076, 0, 0.84827584, 0)
+        ContainerList.ScrollBarThickness = 5
+        
+        UIListLayout.Parent = ContainerList
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout.Padding = UDim.new(0, 5)
+        
+        UIPadding.Parent = ContainerList
+        UIPadding.PaddingTop = UDim.new(0, 5)
 
         TabButton.MouseButton1Click:Connect(function()
             UpdateSize()
-            for i, v in next, pages:GetChildren() do
+            for i, v in next, Pages:GetChildren() do
                 v.Visible = false
             end
-            TabContainerList.Visible = true
+            ContainerList.Visible = true
         end)
-    
-        UIListLayout.Parent = TabContainerList
-        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        UIListLayout.Padding = UDim.new(0, 5)
 
-        UIPadding.Parent = TabContainerList
         local Sections = {}
 
         function Sections:AddSection(secName)
             secName = secName or "Section"
-            local SectionFrame = Instance.new("Frame")
+            local SectionNameFrame = Instance.new("Frame")
             local UICorner = Instance.new("UICorner")
-            local NameSectionFrame = Instance.new("Frame")
-            local UICorner_2 = Instance.new("UICorner")
             local SectionName = Instance.new("TextLabel")
-            local MainFrame = Instance.new("Frame")
-            local UICorner_3 = Instance.new("UICorner")
-            local UIListLayout = Instance.new("UIListLayout")
-            local UIListLayout_2 = Instance.new("UIListLayout")
 
-            for i,v in pairs(MainFrame:GetChildren()) do
+            for i,v in pairs(SectionNameFrame:GetChildren()) do
                 while wait() do
                     if v:IsA("Frame") or v:IsA("TextButton") then
                         function size(pro)
                             if pro == "Size" then
                                 UpdateSize()
-                                updateSectionFrame()
                             end
                         end
                         v.Changed:Connect(size)
@@ -198,82 +172,47 @@ function library:CreateLib(arg, name)
                 end
             end
 
-            local function updateSectionFrame()
-                local innerSc = UIListLayout.AbsoluteContentSize
-                MainFrame.Size = UDim2.new(1, 0, 0, innerSc.Y)
-                local frameSc = UIListLayout_2.AbsoluteContentSize
-                SectionFrame.Size = UDim2.new(0, 352, 0, frameSc.Y)
-            end
-
-            updateSectionFrame()
-
-            SectionFrame.Name = secName.." SectionFrame"
-            SectionFrame.Parent = TabContainerList
-            SectionFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            SectionFrame.BackgroundTransparency = 1.000
-            SectionFrame.Position = UDim2.new(0, 0, -0.0281996019, 0)
-            SectionFrame.Size = UDim2.new(0.997457206, 0, 1.02603042, 0)
+            SectionNameFrame.Name = "SectionNameFrame"
+            SectionNameFrame.Parent = ContainerList
+            SectionNameFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+            SectionNameFrame.Position = UDim2.new(-8.47710524e-08, 0, 0.0203252025, 0)
+            SectionNameFrame.Size = UDim2.new(0.996999979, 0, 0.0896814838, 0)
             
-            UICorner.Parent = SectionFrame
-
-            UIListLayout_2.Parent = SectionFrame
-            UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-            UIListLayout_2.Padding = UDim.new(0, 5)
-            
-            NameSectionFrame.Name = "NameSectionFrame"
-            NameSectionFrame.Parent = SectionFrame
-            NameSectionFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-            NameSectionFrame.Position = UDim2.new(0, 0, 0.0274841432, 0)
-            NameSectionFrame.Size = UDim2.new(0.999319434, 0, 0.139534891, 0)
-            
-            UICorner_2.Parent = NameSectionFrame
+            UICorner.Parent = SectionNameFrame
             
             SectionName.Name = "SectionName"
-            SectionName.Parent = NameSectionFrame
+            SectionName.Parent = SectionNameFrame
             SectionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             SectionName.BackgroundTransparency = 1.000
             SectionName.Position = UDim2.new(0, 0, -4.62387561e-07, 0)
             SectionName.Size = UDim2.new(0.997455537, 0, 0.950023055, 0)
             SectionName.Font = Enum.Font.Cartoon
-            SectionName.Text = secName.." Section"
+            SectionName.Text = secName
             SectionName.TextColor3 = Color3.fromRGB(255, 255, 255)
             SectionName.TextScaled = true
             SectionName.TextSize = 14.000
             SectionName.TextWrapped = true
-            
-            MainFrame.Name = "MainFrame"
-            MainFrame.Parent = SectionFrame
-            MainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            MainFrame.BackgroundTransparency = 1.000
-            MainFrame.BorderSizePixel = 0
-            MainFrame.Position = UDim2.new(0, 0, 0.173361525, 0)
-            MainFrame.Size = UDim2.new(0.999319434, 0, 0.824524283, 0)
-            
-            UICorner_3.Parent = MainFrame
-            
-            UIListLayout.Parent = MainFrame
-            UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            UIListLayout.Padding = UDim.new(0, 5)
 
             local Buttons_functions = {}
 
             function Buttons_functions:AddButton(text, callback)
                 local callback = callback or function() end
                 local Button = Instance.new("TextButton")
-                local UICorner = Instance.new("UICorner")
+                local UICorner = Instance.new("UICorner")           
         
                 Button.Name = text.." Button"
-                Button.Parent = MainFrame
+                Button.Parent = ContainerList
+                Button.AnchorPoint = Vector2.new(0.5, 0.5)
                 Button.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-                Button.Position = UDim2.new(0, 0, 0.142388374, 0)
-                Button.Size = UDim2.new(1, 0, 0.131999999, 0)
+                Button.Position = UDim2.new(0.5, 0, 0.143810153, 0)
+                Button.Size = UDim2.new(1, 0, 0.0591750294, 0)
                 Button.Font = Enum.Font.Cartoon
                 Button.Text = text
                 Button.TextColor3 = Color3.fromRGB(255, 255, 255)
                 Button.TextScaled = true
                 Button.TextSize = 14.000
                 Button.TextWrapped = true
-
+                
                 UICorner.Parent = Button
         
                 Button.MouseButton1Click:Connect(function()
@@ -288,14 +227,14 @@ function library:CreateLib(arg, name)
                 local KeybindBox = Instance.new("TextButton")
                 local UICorner = Instance.new("UICorner")
                 local Keybindname = Instance.new("TextLabel")
-                local UICorner_2 = Instance.new("UICorner")
-                local Title = Instance.new("TextLabel")
-                local UICorner_3 = Instance.new("UICorner")
+                local Title = Instance.new("TextLabel")           
 
                 KeybindBox.Name = "KeybindBox"
-                KeybindBox.Parent = MainFrame
+                KeybindBox.Parent = ContainerList
+                KeybindBox.AnchorPoint = Vector2.new(0.5, 0.5)
                 KeybindBox.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-                KeybindBox.Size = UDim2.new(1, 0, 0.132131934, 0)
+                KeybindBox.Position = UDim2.new(0.5, 0, 0.207201138, 0)
+                KeybindBox.Size = UDim2.new(1, 0, 0.0591750294, 0)
                 KeybindBox.Font = Enum.Font.Cartoon
                 KeybindBox.Text = ""
                 KeybindBox.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -303,6 +242,34 @@ function library:CreateLib(arg, name)
                 KeybindBox.TextSize = 14.000
                 KeybindBox.TextWrapped = true
                 KeybindBox.TextXAlignment = Enum.TextXAlignment.Right
+                
+                UICorner.Parent = KeybindBox
+                
+                Keybindname.Name = "Keybindname"
+                Keybindname.Parent = KeybindBox
+                Keybindname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Keybindname.BackgroundTransparency = 1.000
+                Keybindname.Position = UDim2.new(0.686429739, 0, 0, 0)
+                Keybindname.Size = UDim2.new(0.289642572, 0, 0.952380955, 0)
+                Keybindname.Font = Enum.Font.Cartoon
+                Keybindname.Text = oldkey
+                Keybindname.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Keybindname.TextScaled = true
+                Keybindname.TextSize = 14.000
+                Keybindname.TextWrapped = true
+                
+                Title.Name = "Title"
+                Title.Parent = KeybindBox
+                Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Title.BackgroundTransparency = 1.000
+                Title.Size = UDim2.new(0.682355642, 0, 0.952380955, 0)
+                Title.Font = Enum.Font.Cartoon
+                Title.Text = nametext
+                Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Title.TextScaled = true
+                Title.TextSize = 14.000
+                Title.TextWrapped = true
+
                 KeybindBox.MouseButton1Click:Connect(function(k)
                     if not focusing then
                         Keybindname.Text = ". . ."
@@ -322,36 +289,6 @@ function library:CreateLib(arg, name)
                     end
                 end)
 
-                UICorner.Parent = KeybindBox
-
-                Keybindname.Name = "Keybindname"
-                Keybindname.Parent = KeybindBox
-                Keybindname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Keybindname.BackgroundTransparency = 1.000
-                Keybindname.Position = UDim2.new(0.705887496, 0, 0, 0)
-                Keybindname.Size = UDim2.new(0.292422235, 0, 0.952380955, 0)
-                Keybindname.Font = Enum.Font.Cartoon
-                Keybindname.Text = oldkey
-                Keybindname.TextColor3 = Color3.fromRGB(255, 255, 255)
-                Keybindname.TextScaled = true
-                Keybindname.TextSize = 14.000
-                Keybindname.TextWrapped = true
-
-                UICorner_2.Parent = Keybindname
-
-                Title.Name = "Title"
-                Title.Parent = KeybindBox
-                Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Title.BackgroundTransparency = 1.000
-                Title.Size = UDim2.new(0.70181334, 0, 0.952380955, 0)
-                Title.Font = Enum.Font.Cartoon
-                Title.Text = nametext
-                Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-                Title.TextScaled = true
-                Title.TextSize = 14.000
-                Title.TextWrapped = true
-
-                UICorner_3.Parent = Title
             end
             return Buttons_functions
         end
@@ -359,5 +296,3 @@ function library:CreateLib(arg, name)
     end
     do return TabButtons end
 end
-
-return library
