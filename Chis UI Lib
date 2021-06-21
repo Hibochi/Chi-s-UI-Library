@@ -296,3 +296,5 @@ function library:CreateLib(arg)
     end
     do return TabButtons end
 end
+
+return library
