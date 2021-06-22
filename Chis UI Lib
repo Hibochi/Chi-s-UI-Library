@@ -478,7 +478,7 @@ function library:CreateLib(arg)
                             pcall(function()
                                 callback(Value)
                             end)
-                            Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - Slider.AbsolutePosition.X, 0, 318), 0, 16), "InOut", "Quint", 0.05, true)
+                            Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - Slider.AbsolutePosition.X, 0, 440), 0, 16), "InOut", "Quint", 0.05, true)
                         end)
                         releaseconnection = uis.InputEnded:Connect(function(Mouse)
                             if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
