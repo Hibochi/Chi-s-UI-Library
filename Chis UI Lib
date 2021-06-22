@@ -136,6 +136,7 @@ function library:CreateLib(arg)
         ContainerList.Position = UDim2.new(0.611999989, 0, 0.574999988, 0)
         ContainerList.Size = UDim2.new(0.77922076, 0, 0.84827584, 0)
         ContainerList.ScrollBarThickness = 5
+        ContainerList.Visible = false
         
         UIListLayout.Parent = ContainerList
         UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
