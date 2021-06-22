@@ -156,6 +156,7 @@ function library:CreateLib(arg)
 
         TabButton.MouseButton1Click:Connect(function()
             UpdateSize()
+            UpdateTabSize()
             for i, v in next, Pages:GetChildren() do
                 v.Visible = false
             end
