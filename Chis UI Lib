@@ -95,6 +95,16 @@ function library:CreateLib(arg)
 
     UICorner_2.Parent = TitleFrame
 
+    local function UpdateTabSize()
+        local cS = UIListLayout.AbsoluteContentSize
+
+        game.TweenService:Create(TabContainer, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+            CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
+        }):Play()
+    end
+
+    UpdateTabSize
+
     local TabButtons = {}
 
     function TabButtons:AddTab(text)
