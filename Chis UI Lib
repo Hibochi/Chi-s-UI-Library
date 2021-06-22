@@ -324,7 +324,7 @@ function library:CreateLib(arg)
                 BackgroundToggle.Name = "BackgroundToggle"
                 BackgroundToggle.Parent = Toggle
                 if colorIndicator then
-                    BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                    BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.fromRGB(25, 25, 25)
                 else
                     BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
                 end
@@ -353,7 +353,7 @@ function library:CreateLib(arg)
                     toggled = not toggled
                     InnerToggle:TweenPosition(toggled and UDim2.new(0.48, 0,0, 0) or UDim2.new(0, 0,0, 0), "InOut", "Quint", 0.5, true)
                     if colorIndicator then
-                        BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                        BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.fromRGB(25, 25, 25)
                     else
                         BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
                     end
@@ -369,7 +369,7 @@ function library:CreateLib(arg)
                         toggled = true
                         InnerToggle:TweenPosition(toggled and UDim2.new(0.48, 0,0, 0) or UDim2.new(0, 0,0, 0), "InOut", "Quint", 0.5, true)
                         if colorIndicator then
-                            BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                            BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.fromRGB(25, 25, 25)
                         else
                             BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
                         end
@@ -378,7 +378,7 @@ function library:CreateLib(arg)
                         toggled = false
                         InnerToggle:TweenPosition(toggled and UDim2.new(0.48, 0,0, 0) or UDim2.new(0, 0,0, 0), "InOut", "Quint", 0.5, true)
                         if colorIndicator then
-                            BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                            BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.fromRGB(25, 25, 25)
                         else
                             BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
                         end
