@@ -393,7 +393,7 @@ function library:CreateLib(arg)
                 maxvalue = maxvalue or 100
                 callback = callback or function() end
                 title = title or "Slider"
-                local Value
+                local Value = 0
                 local mouse = game.Players.LocalPlayer:GetMouse()
                 local uis = game:GetService("UserInputService")
 
