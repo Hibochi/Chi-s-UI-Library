@@ -154,6 +154,10 @@ function library:CreateLib(arg)
         UIPadding.Parent = ContainerList
         UIPadding.PaddingTop = UDim.new(0, 5)
 
+        for i, v in next Pages:GetChildren() do
+            v.Visible = false
+        end
+
         TabButton.MouseButton1Click:Connect(function()
             UpdateSize()
             UpdateTabSize()
