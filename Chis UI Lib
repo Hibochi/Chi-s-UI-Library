@@ -387,6 +387,112 @@ function library:CreateLib(arg)
                 end
                 return actions
             end
+
+            function Buttons_functions:AddSlider(title, minvalue, maxvalue, callback)
+                minvalue = minvalue or 0
+                maxvalue = maxvalue or 100
+                callback = callback or function() end
+                title = title or "Slider"
+                local Value
+                local mouse = game.Players.LocalPlayer:GetMouse()
+                local uis = game:GetService("UserInputService")
+
+                local SliderFrame = Instance.new("Frame")
+                local UICorner = Instance.new("UICorner")
+                local SliderName = Instance.new("TextLabel")
+                local SlideButton = Instance.new("TextButton")
+                local UICorner_2 = Instance.new("UICorner")
+                local Slider = Instance.new("Frame")
+                local UICorner_3 = Instance.new("UICorner")
+                local SliderValue = Instance.new("TextLabel")
+
+                SliderFrame.Name = "SliderFrame"
+                SliderFrame.Parent = ContainerList
+                SliderFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+                SliderFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                SliderFrame.Position = UDim2.new(0.5, 0, 0.76617986, 0)
+                SliderFrame.Size = UDim2.new(1, 0, 0.0813024119, 0)
+
+                UICorner.Parent = SliderFrame
+
+                SliderName.Name = "SliderName"
+                SliderName.Parent = SliderFrame
+                SliderName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                SliderName.BackgroundTransparency = 1.000
+                SliderName.BorderSizePixel = 0
+                SliderName.Size = UDim2.new(0.766666651, 0, 0.405333608, 0)
+                SliderName.Font = Enum.Font.Cartoon
+                SliderName.Text = title
+                SliderName.TextColor3 = Color3.fromRGB(255, 255, 255)
+                SliderName.TextScaled = true
+                SliderName.TextSize = 14.000
+                SliderName.TextWrapped = true
+
+                SlideButton.Name = "SlideButton"
+                SlideButton.Parent = SliderFrame
+                SlideButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+                SlideButton.BorderSizePixel = 0
+                SlideButton.Position = UDim2.new(0.0199999996, 0, 0.449999988, 0)
+                SlideButton.Size = UDim2.new(0.961111128, 0, 0.405333608, 0)
+                SlideButton.AutoButtonColor = false
+                SlideButton.Font = Enum.Font.SourceSans
+                SlideButton.Text = ""
+                SlideButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+                SlideButton.TextSize = 14.000
+
+                UICorner_2.Parent = SlideButton
+
+                Slider.Name = "Slider"
+                Slider.Parent = SlideButton
+                Slider.BackgroundColor3 = Color3.fromRGB(255, 132, 25)
+                Slider.Size = UDim2.new(0.132947981, 0, 1, 0)
+
+                UICorner_3.Parent = Slider
+
+                SliderValue.Name = "SliderValue"
+                SliderValue.Parent = SliderFrame
+                SliderValue.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+                SliderValue.BackgroundTransparency = 1.000
+                SliderValue.BorderSizePixel = 0
+                SliderValue.Position = UDim2.new(0.782999992, 0, 0.064000003, 0)
+                SliderValue.Size = UDim2.new(0.197222218, 0, 0.320000201, 0)
+                SliderValue.Font = Enum.Font.Cartoon
+                SliderValue.Text = Value
+                SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+                SliderValue.TextScaled = true
+                SliderValue.TextSize = 14.000
+                SliderValue.TextWrapped = true
+
+                SlideButton.MouseButton1Down:Connect(function()
+                    if not focusing then
+                        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 149) * sliderDrag.AbsoluteSize.X) + tonumber(minvalue)) or 0
+                        pcall(function()
+                            callback(Value)
+                        end)
+                        Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - sliderDrag.AbsolutePosition.X, 0, 149), 0, 6), "InOut", "Linear", 0.05, true)
+                        moveconnection = mouse.Move:Connect(function()
+                            SliderValue.Text = Value
+                            Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 149) * sliderDrag.AbsoluteSize.X) + tonumber(minvalue))
+                            pcall(function()
+                                callback(Value)
+                            end)
+                            Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - sliderDrag.AbsolutePosition.X, 0, 149), 0, 6), "InOut", "Linear", 0.05, true)
+                        end)
+                        releaseconnection = uis.InputEnded:Connect(function(Mouse)
+                            if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+                                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 149) * sliderDrag.AbsoluteSize.X) + tonumber(minvalue))
+                                pcall(function()
+                                    callback(Value)
+                                end)
+                                SliderValue.Text = Value
+                                Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - sliderDrag.AbsolutePosition.X, 0, 149), 0, 6), "InOut", "Linear", 0.05, true)
+                                moveconnection:Disconnect()
+                                releaseconnection:Disconnect()
+                            end
+                        end)
+                    end
+                end)
+            end
             return Buttons_functions
         end
         return Sections
