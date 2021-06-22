@@ -132,6 +132,7 @@ function library:CreateLib(arg)
         ContainerList.AnchorPoint = Vector2.new(0.5, 0.5)
         ContainerList.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         ContainerList.BorderSizePixel = 0
+        ContainerList.BackgroundTransparency = 1
         ContainerList.Position = UDim2.new(0.611999989, 0, 0.574999988, 0)
         ContainerList.Size = UDim2.new(0.77922076, 0, 0.84827584, 0)
         ContainerList.ScrollBarThickness = 5
@@ -541,7 +542,7 @@ function library:CreateLib(arg)
                     if not enterPressed then
                         return
                     else
-                        pcall(callback(Box.Text))
+                        callback(Box.Text)
                         wait(0.2)
                         Box.Text = ""
                     end
