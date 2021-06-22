@@ -445,7 +445,7 @@ function library:CreateLib(arg)
                 Slider.Name = "Slider"
                 Slider.Parent = SlideButton
                 Slider.BackgroundColor3 = Color3.fromRGB(255, 132, 25)
-                Slider.Size = UDim2.new(0.132947981, 0, 1, 0)
+                Slider.Size = UDim2.new(0, 0,1, 0)
 
                 UICorner_3.Parent = Slider
 
