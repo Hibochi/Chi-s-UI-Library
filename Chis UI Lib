@@ -290,6 +290,103 @@ function library:CreateLib(arg)
                 end)
 
             end
+
+            function Buttons_functions:AddToggle(text, value, indicator,callback)
+                local actions = {}
+                local toggled = value
+                local colorIndicator = indicator
+
+                text = text or "Toggle"
+                callback = callback or function () end
+
+                local Toggle = Instance.new("TextLabel")
+                local UICorner = Instance.new("UICorner")
+                local BackgroundToggle = Instance.new("TextButton")
+                local UICorner_2 = Instance.new("UICorner")
+                local InnerToggle = Instance.new("TextLabel")
+                local UICorner_3 = Instance.new("UICorner")
+
+                Toggle.Name = text.." Toggle"
+                Toggle.Parent = ContainerList
+                Toggle.AnchorPoint = Vector2.new(0.5, 0.5)
+                Toggle.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                Toggle.BorderSizePixel = 0
+                Toggle.Size = UDim2.new(1, 0, 0.0590000004, 0)
+                Toggle.Font = Enum.Font.Cartoon
+                Toggle.Text = text
+                Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Toggle.TextScaled = true
+                Toggle.TextSize = 14.000
+                Toggle.TextWrapped = true
+
+                UICorner.Parent = Toggle
+
+                BackgroundToggle.Name = "BackgroundToggle"
+                BackgroundToggle.Parent = Toggle
+                if colorIndicator then
+                    BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                else
+                    BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+                end
+                BackgroundToggle.Position = UDim2.new(0.766666651, 0, 0.08843036, 0)
+                BackgroundToggle.Size = UDim2.new(0.208333328, 0, 0.795873284, 0)
+                BackgroundToggle.Font = Enum.Font.SourceSans
+                BackgroundToggle.Text = ""
+                BackgroundToggle.TextColor3 = Color3.fromRGB(0, 0, 0)
+                BackgroundToggle.TextSize = 14.000
+
+                UICorner_2.Parent = BackgroundToggle
+
+                InnerToggle.Name = "InnerToggle"
+                InnerToggle.Parent = BackgroundToggle
+                InnerToggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                InnerToggle.Position = toggled and UDim2.new(0.48, 0,0, 0) or UDim2.new(0, 0,0, 0)
+                InnerToggle.Size = UDim2.new(0.519999981, 0, 1, 0)
+                InnerToggle.Font = Enum.Font.SourceSans
+                InnerToggle.Text = ""
+                InnerToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                InnerToggle.TextSize = 14.000
+
+                UICorner_3.Parent = InnerToggle
+
+                local function fire()
+                    toggled = not toggled
+                    InnerToggle:TweenPosition(toggled and UDim2.new(0.48, 0,0, 0) or UDim2.new(0, 0,0, 0), "InOut", "Quint", 0.5, true)
+                    if colorIndicator then
+                        BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                    else
+                        BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+                    end
+                    pcall(callback, toggled)
+                end
+
+                BackgroundToggle.MouseButton1Click:Connect(fire)
+
+                function actions:UpdateToggle(arg, value)
+                    Toggle.Text = arg
+                    value = value
+                    if value then
+                        toggled = true
+                        InnerToggle:TweenPosition(toggled and UDim2.new(0.48, 0,0, 0) or UDim2.new(0, 0,0, 0), "InOut", "Quint", 0.5, true)
+                        if colorIndicator then
+                            BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                        else
+                            BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+                        end
+                        pcall(callback, toggled)
+                    else
+                        toggled = false
+                        InnerToggle:TweenPosition(toggled and UDim2.new(0.48, 0,0, 0) or UDim2.new(0, 0,0, 0), "InOut", "Quint", 0.5, true)
+                        if colorIndicator then
+                            BackgroundToggle.BackgroundColor3 = toggled and Color3.fromRGB(0 ,255, 0) or Color3.new(25, 25, 25)
+                        else
+                            BackgroundToggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+                        end
+                        pcall(callback, toggled)
+                    end
+                end
+                return actions
+            end
             return Buttons_functions
         end
         return Sections
