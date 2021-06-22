@@ -138,7 +138,7 @@ function library:CreateLib(arg)
         
         UIListLayout.Parent = ContainerList
         UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        UIListLayout.Padding = UDim.new(0, 5)
+        UIListLayout.Padding = UDim.new(0, 8)
         
         UIPadding.Parent = ContainerList
         UIPadding.PaddingTop = UDim.new(0, 5)
@@ -492,6 +492,58 @@ function library:CreateLib(arg)
                                 releaseconnection:Disconnect()
                             end
                         end)
+                    end
+                end)
+            end
+
+            function Buttons_functions:AddTextBox(tBox, callback)
+                title = title or "TextBox"
+                callback = callback or function() end
+
+                local TextBox = Instance.new("TextLabel")
+                local UICorner = Instance.new("UICorner")
+                local Box = Instance.new("TextBox")
+                local UICorner_2 = Instance.new("UICorner")
+
+                TextBox.Name = tBox.." TextBox"
+                TextBox.Parent = ContainerList
+                TextBox.AnchorPoint = Vector2.new(0.5, 0.5)
+                TextBox.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                TextBox.BorderSizePixel = 0
+                TextBox.Size = UDim2.new(1, 0, 0.0590000004, 0)
+                TextBox.Font = Enum.Font.Cartoon
+                TextBox.Text = tBox
+                TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+                TextBox.TextScaled = true
+                TextBox.TextSize = 14.000
+                TextBox.TextWrapped = true
+
+                UICorner.Parent = TextBox
+
+                Box.Name = "Box"
+                Box.Parent = TextBox
+                Box.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+                Box.Position = UDim2.new(0.76700002, 0, 0.0879999995, 0)
+                Box.Size = UDim2.new(0.208000019, 0, 0.796000004, 0)
+                Box.ClearTextOnFocus = false
+                Box.Font = Enum.Font.Cartoon
+                Box.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+                Box.PlaceholderText = "Type Here"
+                Box.Text = ""
+                Box.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Box.TextScaled = true
+                Box.TextSize = 14.000
+                Box.TextWrapped = true
+
+                UICorner_2.Parent = Box
+
+                Box.FocusLost:Connect(function(enterPressed)
+                    if not enterPressed then
+                        return
+                    else
+                        pcall(callback(Box.Text))
+                        wait(0.2)
+                        Box.Text = ""
                     end
                 end)
             end
