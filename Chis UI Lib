@@ -393,7 +393,7 @@ function library:CreateLib(arg)
                 maxvalue = maxvalue or 100
                 callback = callback or function() end
                 title = title or "Slider"
-                local Value = 0
+                local Value
                 local mouse = game.Players.LocalPlayer:GetMouse()
                 local uis = game:GetService("UserInputService")
 
@@ -457,11 +457,13 @@ function library:CreateLib(arg)
                 SliderValue.Position = UDim2.new(0.782999992, 0, 0.064000003, 0)
                 SliderValue.Size = UDim2.new(0.197222218, 0, 0.320000201, 0)
                 SliderValue.Font = Enum.Font.Cartoon
-                SliderValue.Text = Value
+                SliderValue.Text = minvalue
                 SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
                 SliderValue.TextScaled = true
                 SliderValue.TextSize = 14.000
                 SliderValue.TextWrapped = true
+                
+                UpdateSize()
 
                 SlideButton.MouseButton1Down:Connect(function()
                     if not focusing then
