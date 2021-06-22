@@ -103,7 +103,7 @@ function library:CreateLib(arg)
         }):Play()
     end
 
-    UpdateTabSize
+    UpdateTabSize()
 
     local TabButtons = {}
 
