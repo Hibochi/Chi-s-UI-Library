@@ -467,14 +467,14 @@ function library:CreateLib(arg)
 
                 SlideButton.MouseButton1Down:Connect(function()
                     if not focusing then
-                        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 318) * Slider.AbsoluteSize.X) + tonumber(minvalue)) or 0
+                        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 440) * Slider.AbsoluteSize.X) + tonumber(minvalue)) or 0
                         pcall(function()
                             callback(Value)
                         end)
-                        Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - Slider.AbsolutePosition.X, 0, 318), 0, 16), "InOut", "Quint", 0.05, true)
+                        Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - Slider.AbsolutePosition.X, 0, 440), 0, 16), "InOut", "Quint", 0.05, true)
                         moveconnection = mouse.Move:Connect(function()
                             SliderValue.Text = Value
-                            Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 318) * Slider.AbsoluteSize.X) + tonumber(minvalue))
+                            Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 440) * Slider.AbsoluteSize.X) + tonumber(minvalue))
                             pcall(function()
                                 callback(Value)
                             end)
@@ -482,12 +482,12 @@ function library:CreateLib(arg)
                         end)
                         releaseconnection = uis.InputEnded:Connect(function(Mouse)
                             if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
-                                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 318) * Slider.AbsoluteSize.X) + tonumber(minvalue))
+                                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 440) * Slider.AbsoluteSize.X) + tonumber(minvalue))
                                 pcall(function()
                                     callback(Value)
                                 end)
                                 SliderValue.Text = Value
-                                Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - Slider.AbsolutePosition.X, 0, 318), 0, 16), "InOut", "Quint", 0.05, true)
+                                Slider:TweenSize(UDim2.new(0, math.clamp(mouse.X - Slider.AbsolutePosition.X, 0, 440), 0, 16), "InOut", "Quint", 0.05, true)
                                 moveconnection:Disconnect()
                                 releaseconnection:Disconnect()
                             end
