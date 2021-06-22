@@ -497,7 +497,7 @@ function library:CreateLib(arg)
             end
 
             function Buttons_functions:AddTextBox(tBox, callback)
-                title = title or "TextBox"
+                tBox = tBox or "TextBox"
                 callback = callback or function() end
 
                 local TextBox = Instance.new("TextLabel")
