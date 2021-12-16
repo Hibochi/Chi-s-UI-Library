@@ -7,12 +7,20 @@ sectionTest:AddButton("Test",function()
     print("Button: Pressed")
 end)
 
+sectionTest:AddToggle("Toggle Test", true, true, function(v)
+    print("Toggle: "..tostring(v))
+end)
+
 sectionTest:AddKeybind("Toggle UI",Enum.KeyCode.RightControl,function()
     lib:ToggleUI()
 end)
 
+sectionTest:AddKeybind("Toggle UI",Enum.KeyCode.E,function()
+    print("You just pressed the bind!")
+end)
+
 sectionTest:AddSlider("Walkspeed Slider", 16, 1000, function(v)--16 is min value | 1000 maxvalue
-    print("JumpPower is "..v)
+    print("Walkspeed is "..v)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
 end)
 
