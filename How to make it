@@ -1,4 +1,4 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hibochi/Chi-s-UI-Library-Test/main/Chis%20UI%20Lib"))()
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hibochi/Chi-s-UI-Library/main/Chis%20UI%20Lib"))()
 local window = lib:CreateLib("Test")
 local testTab = window:AddTab("Test")
 local sectionTest = testTab:AddSection("Test Section")
