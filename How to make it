@@ -25,5 +25,5 @@ sectionTest:AddSlider("Walkspeed Slider", 16, 1000, function(v)--16 is min value
 end)
 
 sectionTest:AddTextBox("Textbox", function(v)
-    print("Textbox:"..v)
+    print("Textbox: "..v)
 end)
