@@ -642,9 +642,11 @@ function library:CreateLib(arg)
                     if isDropped then 
                         isDropped = false
                         DropdownList.Size = UDim2.new(0, 357, 0, 148)
+                        DropdownButton.Text = "Dropdown..."
                     else
                         isDropped = true
                         DropdownList.Size = UDim2.new(0, 357, 0, DropYSize)
+                        DropdownButton.Text = dropdownText
                     end
                 end)
 
@@ -683,7 +685,8 @@ function library:CreateLib(arg)
                     UICorner.Parent = Option
 
                     DropYSize += 30
-                    Option.MouseButton1Click:Connect(function(v)
+                    Option.MouseButton1Click:Connect(function()
+                        DropdownButton.Text = v
                         pcall(callback(v))
                     end)
                 end
