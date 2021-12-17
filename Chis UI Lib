@@ -246,7 +246,7 @@ function library:CreateLib(arg)
                 LabelFrame.Parent = ContainerList
                 LabelFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
                 LabelFrame.Position = UDim2.new(-8.47710524e-08, 0, 0.0203252025, 0)
-                LabelFrame.Size = UDim2.new(1, 0, 0.138024986, 0)
+                LabelFrame.Size = UDim2.new(1, 0, 0.0590000004, 0)
 
                 UICorner.Parent = LabelFrame
 
