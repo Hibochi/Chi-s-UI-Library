@@ -23,6 +23,7 @@ end
 local focusing = false
 
 function library:CreateLib(arg)
+    local BodyYSize = 0
 
     local ChisUiLib = Instance.new("ScreenGui")
     local MainContainer = Instance.new("Frame")
@@ -122,6 +123,11 @@ function library:CreateLib(arg)
                 CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
             }):Play()
         end
+
+        local function Resize(v)
+            BodyYSize = BodyYSize + v
+            ContainerList.Size = UDim2.new(0.77922076, 0, 0.84827584, BodyYSize)
+        end
         TabButton.Name = text.." TabButton"
         TabButton.Parent = TabContainer
         TabButton.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
@@ -146,6 +152,9 @@ function library:CreateLib(arg)
         ContainerList.Position = UDim2.new(0.611999989, 0, 0.574999988, 0)
         ContainerList.Size = UDim2.new(0.77922076, 0, 0.84827584, 0)
         ContainerList.ScrollBarThickness = 5
+        ContainerList.ClipsDecendants = false
+
+        ContainerList.Size = UDim2.new(0.77922076, 0, 0.84827584, BodyYSize)
         
         UIListLayout.Parent = ContainerList
         UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -590,6 +599,92 @@ function library:CreateLib(arg)
                         Box.Text = ""
                     end
                 end)
+            end
+
+            function Buttons_functions:AddDropdown(dropdownText, list, callback)
+                dropdownText = dropdownText or "Dropdown"
+                list = list or {}
+                callback = callback or function() end
+
+                local DropYSize = 0
+                local isDropped = false
+
+                Resize(33)
+
+                local UIListLayout = Instance.new("UIListLayout")
+                local Option = Instance.new("TextButton")
+                local UICorner = Instance.new("UICorner")
+
+                local DropdownFrame = Instance.new("Frame")
+                local DropdownButton = Instance.new("TextButton")
+                local UICorner = Instance.new("UICorner")
+                local DropdownList = Instance.new("Frame")
+                local UICorner_2 = Instance.new("UICorner")
+
+                DropdownFrame.Name = "DropdownFrame"
+                DropdownFrame.Parent = ContainerList
+                DropdownFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                DropdownFrame.BackgroundTransparency = 1.000
+                DropdownFrame.BorderSizePixel = 0
+                DropdownFrame.Position = UDim2.new(0, 0, 0.301621884, 0)
+                DropdownFrame.Size = UDim2.new(0, 357, 0, 33)
+
+                DropdownButton.Name = "DropdownButton"
+                DropdownButton.Parent = DropdownFrame
+                DropdownButton.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                DropdownButton.Size = UDim2.new(0, 357, 0, 34)
+                DropdownButton.Font = Enum.Font.Cartoon
+                DropdownButton.Text = dropdownText
+                DropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                DropdownButton.TextScaled = true
+                DropdownButton.TextSize = 14.000
+                DropdownButton.TextWrapped = true
+                DropdownButton.MouseButton1Click:Connect(function ()
+                    if isDropped then 
+                        isDropped = false
+                        DropdownList.Size = UDim2.new(0, 357, 0, 148)
+                    else
+                        isDropped = true
+                        DropdownList.Size = UDim2.new(0, 357, 0, DropYSize)
+                    end
+                end)
+
+                UICorner.Parent = DropdownButton
+
+                DropdownList.Name = "DropdownList"
+                DropdownList.Parent = DropdownFrame
+                DropdownList.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+                DropdownList.Position = UDim2.new(0, 0, 1.1818186, 0)
+                DropdownList.Size = UDim2.new(0, 357, 0, 148)
+                DropdownList.ClipsDecendants = true
+                local UIListLayout = Instance.new("UIListLayout")
+                UIListLayout.Parent = DropdownList
+                UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+                UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                UIListLayout.Padding = UDim.new(0, 10)
+
+                UICorner_2.Parent = DropdownList
+
+                for i, v in next, list do
+                    local Option = Instance.new("TextButton")
+                    local UICorner = Instance.new("UICorner")
+
+                    Option.Name = "Option"
+                    Option.Parent = DropdownList
+                    Option.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                    Option.Position = UDim2.new(0.104370117, 0, 0, 0)
+                    Option.Size = UDim2.new(0, 280, 0, 30)
+                    Option.Font = Enum.Font.Cartoon
+                    Option.Text = v
+                    Option.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    Option.TextScaled = true
+                    Option.TextSize = 14.000
+                    Option.TextWrapped = true
+
+                    UICorner.Parent = Option
+
+                    DropYSize += 30
+                end
             end
             return Buttons_functions
         end
