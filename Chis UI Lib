@@ -684,6 +684,9 @@ function library:CreateLib(arg)
                     UICorner.Parent = Option
 
                     DropYSize += 30
+                    Option.MouseButton1Click:Connect(function(v)
+                        pcall(callback(v))
+                    end)
                 end
             end
             return Buttons_functions
