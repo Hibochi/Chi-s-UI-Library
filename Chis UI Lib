@@ -655,7 +655,7 @@ function library:CreateLib(arg)
                 DropdownList.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
                 DropdownList.Position = UDim2.new(0, 0, 1.1818186, 0)
                 DropdownList.Size = UDim2.new(0, 357, 0, 148)
-                DropdownList.ClipsDecendants = true
+                DropdownList.ClipsDescendants = true
                 local UIListLayout = Instance.new("UIListLayout")
                 UIListLayout.Parent = DropdownList
                 UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
