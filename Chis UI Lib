@@ -236,6 +236,34 @@ function library:CreateLib(arg)
                 end)
             end
 
+            function Buttons_functions:AddLabel(text)
+                text = text or "Label"
+                local LabelFrame = Instance.new("Frame")
+                local UICorner = Instance.new("UICorner")
+                local LabelName = Instance.new("TextLabel")
+
+                LabelFrame.Name = "LabelFrame"
+                LabelFrame.Parent = ContainerList
+                LabelFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+                LabelFrame.Position = UDim2.new(-8.47710524e-08, 0, 0.0203252025, 0)
+                LabelFrame.Size = UDim2.new(1, 0, 0.0590000004, 0)
+
+                UICorner.Parent = LabelFrame
+
+                LabelName.Name = "LabelName"
+                LabelName.Parent = LabelFrame
+                LabelName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                LabelName.BackgroundTransparency = 1.000
+                LabelName.Position = UDim2.new(0, 0, -8.09992059e-07, 0)
+                LabelName.Size = UDim2.new(0.997933149, 0, 0.987043977, 0)
+                LabelName.Font = Enum.Font.Cartoon
+                LabelName.Text = text
+                LabelName.TextColor3 = Color3.fromRGB(255, 255, 255)
+                LabelName.TextScaled = true
+                LabelName.TextSize = 14.000
+                LabelName.TextWrapped = true
+            end
+
             function Buttons_functions:AddKeybind(nametext, first, callback)
                 nametext = nametext or "Keybind:"
                 callback = callback or function () end
